@@ -33,6 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/catalog', \App\Demo\Controllers\CatalogController::class)->name('catalog');
+    Route::get('/my-courses', \App\Demo\Controllers\MyCoursesController::class)->name('my-courses');
+    Route::get('course', \App\Demo\Controllers\CourseController::class)->name('course');
 
     require __DIR__.'/../app/UserProfile/routes.php';
 });

@@ -5,72 +5,114 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
-
+import rvlogo from '../../Images/ProUniversity_02.png'
+import toolbar from '../../Images/Toolbar@3x.png'
+import pill from '../../Images/Progress Pill Together.png'
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-black">
+            <div className={'h-[4.5rem]'}>
+            <img src={toolbar} className={'h-[4rem] object-cover w-full'}/>
+            </div>
+            <nav className="bg-[#2A2A2A] border-b border-gray-100 mt-[-7.6px]">
+                <div className=" px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
+                        <div className="shrink-0 flex items-center">
+                            <Link href="/">
+                                <div className={'w-[3.2rem] flex flex-row gap-4 items-center'}>
+                                    <img src={rvlogo}/>
+                                    <a className={'text-white font-bold'}>Home</a>
+                                </div>
+                            </Link>
+                        </div>
                         <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                                </Link>
-                            </div>
+
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')} className={`text-white font-bold hover:text-white`}>
+                                    <p className={`${route().current('dashboard') ? 'bg-gradient-to-r from-[#FF624D] to-[#FA2AED] px-[.5rem] py-[.2rem] rounded-xl' : ''}`}>
                                     Dashboard
+                                    </p>
                                 </NavLink>
                             </div>
-                            {user.organization_id &&
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={route('profile.available-needs')} active={route().current('profile.available-needs')}>
-                                    Needs
+                                <NavLink href={route('my-courses')} active={route().current('my-courses')} className={'text-white font-bold hover:text-white'}>
+                                    <p className={`${route().current('my-courses') ? 'bg-gradient-to-r from-[#FF624D] to-[#FA2AED] px-[.5rem] py-[.2rem] rounded-xl' : ''}`}>
+                                    My Courses
+                                    </p>
                                 </NavLink>
                             </div>
-                            }
-                        </div>
-
-                        <div className="hidden sm:flex sm:items-center sm:ml-6">
-                            <div className="ml-3 relative">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                {user.name}
-
-                                                <svg
-                                                    className="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
-
-                                    <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex border-r-2 border-gray-500 pr-[2rem]">
+                                <NavLink href={route('catalog')} active={route().current('catalog')} className={'text-white font-bold hover:text-white'}>
+                                    <p className={`${route().current('catalog') ? 'bg-gradient-to-r from-[#FF624D] to-[#FA2AED] px-[.5rem] py-[.2rem] rounded-xl' : ''}`}>
+                                    Course Catalog
+                                    </p>
+                                </NavLink>
                             </div>
+
+                            <div className={'hidden space-x-8 sm:-my-px sm:ml-10 sm:flex items-center'}>
+                                <p className={'text-gray-300 text-sm'}>My Progress:</p>
+                                <div className={'w-[14rem] flex flex-col gap-2'}>
+                                    <div >
+                                <img src={pill} />
+                                    </div>
+                                    <p className={'text-xs text-gray-300'}>60% Complete for ProPresenter: Module</p>
+                                </div>
+                            </div>
+                            {/*{user.organization_id &&<>*/}
+                            {/*<div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">*/}
+                            {/*    <NavLink href={route('profile.available-needs')} active={route().current('profile.available-needs')}>*/}
+                            {/*        Needs*/}
+                            {/*    </NavLink>*/}
+                            {/*</div>*/}
+                            {/*<div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">*/}
+                            {/*    <NavLink href={route('adopted-needs')} active={route().current('adopted-needs')}>*/}
+                            {/*        Adopted Needs*/}
+                            {/*    </NavLink>*/}
+                            {/*</div>*/}
+                            {/*</>*/}
+                            {/*}*/}
+
                         </div>
+
+                        {/*<div className="hidden sm:flex sm:items-center sm:ml-6">*/}
+                        {/*    <div className="ml-3 relative">*/}
+                        {/*        <Dropdown>*/}
+                        {/*            <Dropdown.Trigger>*/}
+                        {/*                <span className="inline-flex rounded-md">*/}
+                        {/*                    <button*/}
+                        {/*                        type="button"*/}
+                        {/*                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"*/}
+                        {/*                    >*/}
+                        {/*                        {user.name}*/}
+
+                        {/*                        <svg*/}
+                        {/*                            className="ml-2 -mr-0.5 h-4 w-4"*/}
+                        {/*                            xmlns="http://www.w3.org/2000/svg"*/}
+                        {/*                            viewBox="0 0 20 20"*/}
+                        {/*                            fill="currentColor"*/}
+                        {/*                        >*/}
+                        {/*                            <path*/}
+                        {/*                                fillRule="evenodd"*/}
+                        {/*                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"*/}
+                        {/*                                clipRule="evenodd"*/}
+                        {/*                            />*/}
+                        {/*                        </svg>*/}
+                        {/*                    </button>*/}
+                        {/*                </span>*/}
+                        {/*            </Dropdown.Trigger>*/}
+
+                        {/*            <Dropdown.Content>*/}
+                        {/*                <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>*/}
+                        {/*                <Dropdown.Link href={route('logout')} method="post" as="button">*/}
+                        {/*                    Log Out*/}
+                        {/*                </Dropdown.Link>*/}
+                        {/*            </Dropdown.Content>*/}
+                        {/*        </Dropdown>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
 
                         <div className="-mr-2 flex items-center sm:hidden">
                             <button
@@ -123,11 +165,11 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                 </div>
             </nav>
 
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
-                </header>
-            )}
+            {/*{header && (*/}
+            {/*    <header className="bg-black shadow">*/}
+            {/*        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>*/}
+            {/*    </header>*/}
+            {/*)}*/}
 
             <main>{children}</main>
         </div>

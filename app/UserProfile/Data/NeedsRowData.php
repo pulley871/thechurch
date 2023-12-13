@@ -13,7 +13,7 @@ class NeedsRowData extends Data
         public int $id,
         public string $category,
         public string $title,
-        public int $priority,
+        public string $priority,
         public string $requested_deadline
     ) {
     }

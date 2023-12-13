@@ -1,5 +1,16 @@
-import {ColumnDef, flexRender, getCoreRowModel, useReactTable} from "@tanstack/react-table";
+import {
+    ColumnDef,
+    ColumnFiltersState,
+    flexRender,
+    getCoreRowModel, getFilteredRowModel,
+    getPaginationRowModel,
+    useReactTable
+} from "@tanstack/react-table";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/Components/ui/table";
+import SecondaryButton from "@/Components/SecondaryButton";
+import PrimaryButton from "@/Components/PrimaryButton";
+import {useState} from "react";
+import TextInput from "@/Components/TextInput";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -8,13 +19,33 @@ interface DataTableProps<TData, TValue> {
 }
 
 export default function NeedsList<TData, TValue>({columns, data, callback} : DataTableProps<TData, TValue>) {
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+        []
+    )
     const table = useReactTable({
         data,
         columns,
-        getCoreRowModel: getCoreRowModel()
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        onColumnFiltersChange: setColumnFilters,
+        getFilteredRowModel: getFilteredRowModel(),
+        state: {
+            columnFilters,
+        },
     })
 
     return (
+        <div>
+            <div className="flex items-center py-4">
+                <TextInput
+                    placeholder="Search..."
+                    value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) =>
+                        table.getColumn("title")?.setFilterValue(event.target.value)
+                    }
+                    className="max-w-sm"
+                />
+            </div>
         <div className="rounded-md border">
             <Table>
                 <TableHeader>
@@ -61,6 +92,21 @@ export default function NeedsList<TData, TValue>({columns, data, callback} : Dat
                     )}
                 </TableBody>
             </Table>
+        </div>
+            <div className="flex items-center justify-end space-x-2 py-4">
+                <SecondaryButton
+                    onClick={() => table.previousPage()}
+                    disabled={!table.getCanPreviousPage()}
+                >
+                    Previous
+                </SecondaryButton>
+                <PrimaryButton
+                    onClick={() => table.nextPage()}
+                    disabled={!table.getCanNextPage()}
+                >
+                    Next
+                </PrimaryButton>
+            </div>
         </div>
     )
 }

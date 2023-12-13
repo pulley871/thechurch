@@ -3,7 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Demo\Models\Course;
+use App\Demo\Models\CourseToUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -47,5 +50,17 @@ class User extends Authenticatable
     public function currentOrganization(): HasOne
     {
         return $this->hasOne(Organization::class, 'main_admin_id', 'id');
+    }
+
+    public function courses(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Course::class,
+            CourseToUser::class,
+            'user_id',
+            'id',
+            'id',
+            'course_id'
+        );
     }
 }

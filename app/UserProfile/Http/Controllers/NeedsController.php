@@ -18,19 +18,23 @@ class NeedsController extends Controller
         $columns = [
             [
                 'accessorKey' => 'title',
-                'header' => 'Title'
+                'header' => 'Title',
+                'sortable' => false,
             ],
             [
                 'accessorKey' => 'category',
-                'header' => 'Category'
+                'header' => 'Category',
+                'sortable' => true,
             ],
             [
                 'accessorKey' => 'priority',
-                'header' => 'Priority'
+                'header' => 'Priority',
+                'sortable' => true,
             ],
             [
                 'accessorKey' => 'requested_deadline',
-                'header' => 'Requested By'
+                'header' => 'Requested By',
+                'sortable' => true,
             ],
 
         ];
@@ -40,7 +44,12 @@ class NeedsController extends Controller
             props: NeedsShowPropData::from(
                 [
                     'columns' => NeedsColumnData::collection($columns),
-                    'table_data' => NeedsRowData::collection(Need::all())
+                    'table_data' => NeedsRowData::collection(Need::where('organization_id', null)
+                        ->where('organization_id', null)
+                        ->where('requested_deadline', '>=', now())
+                        ->orderBy('requested_deadline')
+                        ->limit(1000)
+                        ->get())
                 ]
             ));
     }

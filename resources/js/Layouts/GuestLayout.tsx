@@ -1,13 +1,18 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Link } from '@inertiajs/react';
 import { PropsWithChildren } from 'react';
+import rvlogo from '../../Images/ProUniversity_02.png'
 
 export default function Guest({ children }: PropsWithChildren) {
     return (
         <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <Link href="/">
-                    <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
+            <div >
+                <Link href="/" className={'flex flex-col items-center'}>
+                    {/*<ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />*/}
+                    <div className={'w-[10rem]'}>
+                    <img src={rvlogo} />
+                    </div>
+                    <h1 className={'font-bold text-2xl text-blue-500'}>PRO UNIVERSITY</h1>
                 </Link>
             </div>
 

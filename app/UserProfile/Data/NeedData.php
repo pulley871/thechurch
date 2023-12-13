@@ -12,7 +12,9 @@ class NeedData extends Data
     public function __construct(
         public int $id,
         public string $title,
-        public string $body
+        public string $body,
+        public int $total_views,
+        public bool $need_adopted,
     ) {}
 
     public static function fromModel(Need $need): self
@@ -20,7 +22,9 @@ class NeedData extends Data
         return new self(
             id: $need->id,
             title: $need->title,
-            body: $need->body
+            body: $need->body,
+            total_views: $need->viewTotal(),
+            need_adopted: $need->organization_id ? true : false,
         );
     }
 }

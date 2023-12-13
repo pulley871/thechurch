@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasAdoptedNeeds;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Organization extends Model
 {
+    use HasAdoptedNeeds;
     protected $primaryKey = 'id';
 
     protected $fillable = [
